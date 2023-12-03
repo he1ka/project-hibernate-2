@@ -1,12 +1,15 @@
 package com.olga_o.entity;
 
 import com.olga_o.model.RatingType;
-import com.olga_o.model.SpecialFeature;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,23 +32,21 @@ public class Film {
     @Column(name = "rental_duration", nullable = false, columnDefinition = "tinyint unsigned default 3")
     private Short rentalDuration;
 
-    @Column(name = "rental_rate", nullable = false, columnDefinition = "decimal(4, 2) default 4.99")
-    private Double rentalRate;
+    @Column(name = "rental_rate", nullable = false, precision = 4, scale = 2, columnDefinition = "default 4.99")
+    private BigDecimal rentalRate;
 
     @Column(name = "length")
     private Short length;
 
-    @Column(name = "replacement_cost", nullable = false, columnDefinition = "decimal(5, 2) default 19.99")
-    private Double replacementCost;
+    @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2, columnDefinition = "default 19.99")
+    private BigDecimal replacementCost;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rating", columnDefinition = "default 'G'")
     private RatingType rating;
 
-    @ElementCollection(targetClass = SpecialFeature.class, fetch = FetchType.EAGER)
     @Column(name = "special_features")
-    @Enumerated(EnumType.STRING)
-    private Set<SpecialFeature> specialFeatures;
+    private String specialFeatures;
 
     @CreationTimestamp
     @UpdateTimestamp
@@ -115,11 +116,11 @@ public class Film {
         this.rentalDuration = rentalDuration;
     }
 
-    public Double getRentalRate() {
+    public BigDecimal getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(Double rentalRate) {
+    public void setRentalRate(BigDecimal rentalRate) {
         this.rentalRate = rentalRate;
     }
 
@@ -131,11 +132,11 @@ public class Film {
         this.length = length;
     }
 
-    public Double getReplacementCost() {
+    public BigDecimal getReplacementCost() {
         return replacementCost;
     }
 
-    public void setReplacementCost(Double replacementCost) {
+    public void setReplacementCost(BigDecimal replacementCost) {
         this.replacementCost = replacementCost;
     }
 
@@ -147,12 +148,22 @@ public class Film {
         this.rating = rating;
     }
 
-    public Set<SpecialFeature> getSpecialFeatures() {
-        return specialFeatures;
+    public Set<String> getSpecialFeatures() {
+        if (specialFeatures == null) {
+            return Collections.emptySet();
+        }
+
+        return Collections.unmodifiableSet(
+                new HashSet<String>(Arrays.asList(specialFeatures.split(",")))
+        );
     }
 
-    public void setSpecialFeatures(Set<SpecialFeature> specialFeatures) {
-        this.specialFeatures = specialFeatures;
+    public void setSpecialFeatures(Set<String> specialFeatures) {
+        if (specialFeatures == null) {
+            this.specialFeatures = null;
+        } else {
+            this.specialFeatures = String.join(",", specialFeatures);
+        }
     }
 
     public Date getLastUpdate() {
