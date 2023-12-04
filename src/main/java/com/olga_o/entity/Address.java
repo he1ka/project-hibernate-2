@@ -35,7 +35,6 @@ public class Address {
 
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
     @UpdateTimestamp
     private Date lastUpdate;
 

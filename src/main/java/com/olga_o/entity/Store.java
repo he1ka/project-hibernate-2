@@ -25,7 +25,6 @@ public class Store {
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    @CreationTimestamp
     private Date lastUpdate;
 
     public Short getStoreId() {

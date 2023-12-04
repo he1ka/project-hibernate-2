@@ -17,7 +17,7 @@ public enum RatingType {
         return displayName;
     }
 
-    public RatingType fromString(String value) {
+    public static RatingType fromString(String value) {
         if ("G".equals(value)) {
             return G;
         }

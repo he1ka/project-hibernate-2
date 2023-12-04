@@ -20,7 +20,6 @@ public class Category {
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    @CreationTimestamp
     private Date lastUpdate;
 
     @ManyToMany(mappedBy = "categories")

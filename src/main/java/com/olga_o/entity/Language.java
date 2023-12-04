@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "language")
@@ -20,7 +20,6 @@ public class Language {
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    @CreationTimestamp
     private Date lastUpdate;
 
     public Byte getLanguageId() {

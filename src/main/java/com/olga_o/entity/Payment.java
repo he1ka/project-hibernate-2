@@ -37,7 +37,6 @@ public class Payment {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    @CreationTimestamp
     private Date lastUpdate;
 
     public Short getPaymentId() {

@@ -6,7 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,14 +41,12 @@ public class Film {
     @Column(name = "replacement_cost", nullable = false, precision = 5, scale = 2, columnDefinition = "default 19.99")
     private BigDecimal replacementCost;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "rating", columnDefinition = "default 'G'")
-    private RatingType rating;
+    private String rating;
 
     @Column(name = "special_features")
     private String specialFeatures;
 
-    @CreationTimestamp
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_update", nullable = false)
@@ -141,11 +139,11 @@ public class Film {
     }
 
     public RatingType getRating() {
-        return rating;
+        return RatingType.fromString(rating);
     }
 
-    public void setRating(RatingType rating) {
-        this.rating = rating;
+    public void setRating(String ratingType) {
+        this.rating = ratingType;
     }
 
     public Set<String> getSpecialFeatures() {
