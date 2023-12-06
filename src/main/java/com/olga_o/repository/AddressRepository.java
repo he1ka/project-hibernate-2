@@ -1,24 +1,21 @@
 package com.olga_o.repository;
 
-import com.olga_o.entity.Film;
+import com.olga_o.entity.Address;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public class FilmRepository {
+public class AddressRepository {
     private final SessionFactory sessionFactory;
 
-    public FilmRepository(@Autowired SessionFactory sessionFactory) {
+    public AddressRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<Film> getAll() {
+    public Address findById(Short id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Film", Film.class).list();
+            return session.get(Address.class, id);
         }
     }
 }
