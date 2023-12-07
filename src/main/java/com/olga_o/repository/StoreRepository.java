@@ -1,6 +1,7 @@
 package com.olga_o.repository;
 
 import com.olga_o.entity.Store;
+import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,13 @@ public class StoreRepository {
 
     public Store findById(Short id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Store.class, id);
+            Store store = session.get(Store.class, id);
+
+            if (store == null) {
+                throw new EntityNotFoundException("Store with ID " + id + " not found");
+            }
+
+            return store;
         }
     }
 }

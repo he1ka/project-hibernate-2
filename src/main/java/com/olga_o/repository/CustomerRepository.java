@@ -2,6 +2,8 @@ package com.olga_o.repository;
 
 import com.olga_o.entity.Customer;
 import com.olga_o.entity.Film;
+import com.olga_o.entity.Rental;
+import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,6 +30,18 @@ public class CustomerRepository {
             Transaction transaction = session.beginTransaction();
             session.persist(customer);
             transaction.commit();
+
+            return customer;
+        }
+    }
+
+    public Customer findById(int customerId) {
+        try (Session session = sessionFactory.openSession()) {
+            Customer customer = session.get(Customer.class, customerId);
+
+            if (customer == null) {
+                throw new EntityNotFoundException("Customer with ID " + customerId + " not found");
+            }
 
             return customer;
         }
