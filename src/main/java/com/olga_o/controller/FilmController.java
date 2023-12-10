@@ -26,8 +26,6 @@ public class FilmController {
 
     @PostMapping
     public FilmDto create(FilmDto filmDetails) {
-        this.filmService.create(filmDetails);
-
-        return new FilmDto();
+        return this.filmService.create(filmDetails);
     }
 }

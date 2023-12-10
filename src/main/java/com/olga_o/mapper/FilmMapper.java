@@ -59,6 +59,26 @@ public class FilmMapper {
         return film;
     }
 
+    public FilmDto map(Film film) {
+        FilmDto filmDto = new FilmDto();
+        filmDto.filmId = film.getFilmId();
+        filmDto.title = film.getTitle();
+        filmDto.description = film.getDescription();
+        filmDto.releaseYear = film.getReleaseYear();
+        filmDto.rentalDuration = film.getRentalDuration();
+        filmDto.rentalRate = film.getRentalRate();
+        filmDto.length = film.getLength();
+        filmDto.replacementCost = film.getReplacementCost();
+        filmDto.rating = film.getRating().toString();
+        filmDto.specialFeatures = film.getSpecialFeatures();
+        filmDto.language = film.getLanguage().getName();
+        filmDto.originalLanguage = film.getOriginalLanguage().getName();
+        filmDto.categories = film.getCategories().stream().map(Category::getName).collect(Collectors.toSet());
+        filmDto.actors = film.getActors().stream().map(Actor::getLastName).collect(Collectors.toSet());
+
+        return filmDto;
+    }
+
     private Set<Actor> convertActorsToEntities(Set<String> actors) {
         return actors.stream()
                 .map(actorRepository::getByLastName)
