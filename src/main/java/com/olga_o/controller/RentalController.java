@@ -1,6 +1,7 @@
 package com.olga_o.controller;
 
 import com.olga_o.dto.RentalDto;
+import com.olga_o.dto.RentalRequestDto;
 import com.olga_o.dto.RentalReturnDto;
 import com.olga_o.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,12 @@ public class RentalController {
     }
 
     @PostMapping("/return")
-    public RentalDto createCustomer(@RequestBody RentalReturnDto rentalReturnDto) {
+    public RentalDto returnRental(@RequestBody RentalReturnDto rentalReturnDto) {
         return this.rentalService.returnRental(rentalReturnDto);
+    }
+
+    @PostMapping("/")
+    public RentalDto createRental(@RequestBody RentalRequestDto rentalRequestDto) {
+        return this.rentalService.createRental(rentalRequestDto);
     }
 }
