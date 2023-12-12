@@ -35,7 +35,7 @@ public class CustomerRepository {
         }
     }
 
-    public Customer findById(int customerId) {
+    public Customer findById(short customerId) {
         try (Session session = sessionFactory.openSession()) {
             Customer customer = session.get(Customer.class, customerId);
 

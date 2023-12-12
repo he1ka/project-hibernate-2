@@ -1,6 +1,7 @@
 package com.olga_o.repository;
 
 import com.olga_o.entity.Film;
+import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,6 +29,18 @@ public class FilmRepository {
             Transaction transaction = session.beginTransaction();
             session.persist(film);
             transaction.commit();
+
+            return film;
+        }
+    }
+
+    public Film findById(short filmId) {
+        try (Session session = sessionFactory.openSession()) {
+            Film film = session.get(Film.class, filmId);
+
+            if (film == null) {
+                throw new EntityNotFoundException("Film with ID " + filmId + " not found");
+            }
 
             return film;
         }

@@ -14,7 +14,7 @@ public class AddressRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public Address findById(Short id) {
+    public Address findById(short id) {
         try (Session session = sessionFactory.openSession()) {
             Address address = session.get(Address.class, id);
 

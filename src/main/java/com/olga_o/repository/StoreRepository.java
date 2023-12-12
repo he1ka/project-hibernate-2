@@ -22,7 +22,7 @@ public class StoreRepository {
         }
     }
 
-    public Store findById(Short id) {
+    public Store findById(short id) {
         try (Session session = sessionFactory.openSession()) {
             Store store = session.get(Store.class, id);
 
